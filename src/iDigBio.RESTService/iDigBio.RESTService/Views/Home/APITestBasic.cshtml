@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Basic API Test</title>
+    <link href="../../Content/Site.css" rel="stylesheet" />
+    <script src="../../Scripts/jquery-1.7.1.min.js" type="text/javascript">
+        // TODO Add script
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Send an AJAX request
+            $.getJSON("api/SourceImages/",
+            function (data) {
+                // On success, 'data' contains a list of objects.
+                $.each(data, function (key, val) {
+
+                    // Format the text to display.
+                    var str = 'sourceImageId: ' + val.sourceImageId + '<br/>Filename: ' + val.fileName + '<br/>Repository ID: ' + val.sourceImageRepositoryId + '<br/>Url: ' + val.url + '<br/>Alternate ID: ' + val.alternateId + '<br/>';
+
+                    // Add a list item for the product.
+                    $('<li/>', { html: str })
+                    .appendTo($('#sampleSourceImages'));
+                });
+            });
+        });
+
+        function clearResults() {
+            //$('#sourceImageProcessRequestId').val('');
+            $('#sourceImageOCRResults').text('');
+            $('#callbackResults').text('');
+        }
+
+        function findByFileName() {
+            clearResults();
+
+            var fileName = $('#sourceImageFileName').val();
+            $.getJSON("api/SourceImages/?fileName=" + fileName,
+                function (data) {
+                    $('#sourceImageHeader').text('');
+                    // On success, 'data' contains a list of objects.
+                    $.each(data, function (key, val) {
+
+                        // Format the text to display.
+                        var str = 'sourceImageId: ' + val.sourceImageId + '<br/>Filename: ' + val.fileName + '<br/>Repository ID: ' + val.sourceImageRepositoryId + '<br/>Url: ' + val.url + '<br/>Alternate ID: ' + val.alternateId + '<br/>';
+
+                        // Add a list item for the product.
+                        $('<li/>', { html: str })
+                        .appendTo($('#sourceImageHeader'));
+                    });
+                })
+            .fail(
+                function (jqXHR, textStatus, err) {
+                    $('#sourceImageHeader').text('Error: ' + err);
+                });
+        }
+
+        function findBySourceImageId() {
+            clearResults();
+
+            var id = $('#sourceImageId').val();
+            $.getJSON("api/SourceImages/?sourceImageId=" + id,
+                function (data) {
+                    var str = 'sourceImageId: ' + data.sourceImageId + '<br/>Filename: ' + data.fileName + '<br/>Repository ID: ' + data.sourceImageRepositoryId + '<br/>Url: ' + data.url + '<br/>Alternate ID: ' + data.alternateId + '<br/>';
+                    $('#sourceImageHeader').html(str);
+                })
+            .fail(
+                function (jqXHR, textStatus, err) {
+                    $('#sourceImageHeader').text('Error: ' + err);
+                });
+        }
+
+        function displaySourceImageProcessRequest(data) {
+            if (data == null) {
+                alert("No data was returned");
+            } else {
+                var str = 'SourceImageProcessRequestId: ' + data.sourceImageProcessRequestId + '<br />SourceImageId: ' + data.sourceImageId
+                    + '<br />processingEngineId: ' + data.processingEngineId + '<br />callbackUri: ' + data.callbackUri
+                    + '<br />ipAddress: ' + data.ipAddress + '<br />createdByUserName: ' + data.createdByUserName
+                    + '<br />createdUTCDateTime: ' + data.createdUTCDateTime + '<br />resultCreatedUTCDateTime: ' + data.resultCreatedUTCDateTime + '<br />';
+                $('#sourceImageHeader').html(str);
+                $('#sourceImageProcessRequestId').val(data.sourceImageProcessRequestId);
+                $('#sourceImageOCRResults').text(data.resultValue);
+                $('#callbackResults').text(data.resultCallbackUri);
+            }
+        }
+
+        function createOCRRequest() {
+            clearResults();
+
+            var id = $('#ocrRequestSourceImageId').val();
+            var processEngineId = $('#processEngine:checked').val();
+            var userName = "iDigBio";
+            var callbackUri = $('#callbackUri').val();
+
+            var jsonDataString = JSON.stringify({
+                sourceImageId: id,
+                processEngineId: processEngineId,
+                callbackUri: callbackUri,
+                userName: userName
+            });
+
+            // Make our server-side call to create a request.
+            var request = $.ajax({
+                url: "api/ImageProcessRequest",
+                type: "POST",
+                data: jsonDataString,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json"
+            });
+
+            request.done(function (data) {
+                displaySourceImageProcessRequest(data);
+                setTimeout(getSourceImageProcessRequest, 1000);
+            });
+
+            request.fail(function (jqXHR, textStatus) {
+                $('#sourceImageHeader').text('Error: ' + jqXHR.responseText);
+            });
+        }
+
+        function getSourceImageProcessRequest() {
+            clearResults();
+
+            var id = $('#sourceImageProcessRequestId').val();
+
+            if (id.length == 0) {
+                alert('Please provide a SourceImageProcessRequestId value.');
+            }
+            else {
+                $.getJSON("api/ImageProcessRequest/?sourceImageProcessRequestId=" + id,
+                    function (data) {
+                        displaySourceImageProcessRequest(data);
+                    })
+                .fail(
+                    function (jqXHR, textStatus, err) {
+                        $('#sourceImageHeader').text('Error: ' + err);
+                    });
+            }
+        }
+
+    </script>
+</head>
+<body id="body">
+    <div class="main-content">
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <h1>Sample Source Images</h1>
+                    </td>
+                    <td>Want More Samples?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3>(cut & paste into text boxes)</h3>
+                    </td>
+                    <td>200 Lichen: <a href="/Data/GoodLichenTestCandidates.csv" target="_blank" title="Lichen Test File">Good Lichen Test Candidates</a>
+                        <br />
+                        More: <a href="/Data/FileNameTestCandidates.csv" target="_blank" title="Large Test File">10,528 Test Candidates</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <ul id="sampleSourceImages" />
+                    </td>
+                    <td class="topAlign">
+                        <table>
+                            <tr>
+                                <td>
+                                    <label for="sourceImageId">Find by SourceImageId (GUID):</label>
+                                </td>
+                                <td>
+                                    <label for="sourceImageFileName">Find by File :</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" id="sourceImageId" size="40" value="89b2b044-616d-e211-be78-cc52af888ab6" style="width: 350px !important;" />&nbsp;<input type="button" value="Search" onclick="findBySourceImageId();" />
+                                </td>
+                                <td>
+                                    <input type="text" id="sourceImageFileName" size="50" value="NY01075759_lg.jpg" />&nbsp;<input type="button" value="Search" onclick="findByFileName();" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="sourceImageId">Create OCR Request (By SourceImageId):</label>
+                                </td>
+                                <td>&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div>
+                                        <input type="text" id="ocrRequestSourceImageId" size="40" value="89b2b044-616d-e211-be78-cc52af888ab6" style="width: 350px !important;" />&nbsp;<input type="button" value="Create OCR Request" onclick="createOCRRequest();" />
+                                    </div>
+                                    <div>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" id="callbackUri" size="40" value="https://idigbio.org/triggerCallback" style="width: 350px !important;" />&nbsp;
+                                                </td>
+                                                <td>
+                                                    <label for="callbackUri"><- Callback Uri (clear this if you are not testing callbacks)</label>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                    <div>
+                                        <label for="sourceImageFileName">Choose your engine:</label>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <label>@Html.RadioButton("processEngine", "7", true, new { style = "width: 50px !important;", onclick = "createOCRRequest()" })Human</label>
+                                                <label>@Html.RadioButton("processEngine", "1", new { style = "width: 50px !important;", onclick = "createOCRRequest()" })ABBYY</label>
+                                            </td>
+                                            <td>
+                                                <label>@Html.RadioButton("processEngine", "2", new { style = "width: 50px !important;", onclick = "createOCRRequest()" })GOCR</label>
+                                                <label>@Html.RadioButton("processEngine", "3", new { style = "width: 50px !important;", onclick = "createOCRRequest()" })Ocrad</label>
+                                            </td>
+                                            <td>
+                                                <label>@Html.RadioButton("processEngine", "4", new { style = "width: 50px !important;", onclick = "createOCRRequest()" })OCRopus</label>
+                                                <label>@Html.RadioButton("processEngine", "5", new { style = "width: 50px !important;", onclick = "createOCRRequest()" })Tesseract</label>
+                                            </td>
+                                            <td>
+                                                <br />
+                                                <label>@Html.RadioButton("processEngine", "6", new { style = "width: 50px !important;", onclick = "createOCRRequest()" })Xerox</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div>
+                                        <p id="sourceImageHeader" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <label for="sourceImageId">Poll for OCR Results (By SourceImageProcessRequestId):</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <input type="text" id="sourceImageProcessRequestId" size="40" value="" style="width: 350px !important;" />&nbsp;<input type="button" value="Get OCR Results" onclick="getSourceImageProcessRequest();" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="callbackResults">Callback Results:</label>
+                    </td>
+                    <td>
+                        <label for="sourceImageOCRResults">OCR Results:</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="background-color: beige; vertical-align: top;">
+                        <div style="width: 500px;">
+                            <p id="callbackResults" />
+                        </div>
+                    </td>
+                    <td style="background-color: azure; vertical-align: top;">
+                        <div style="width: 500px;">
+                            <p id="sourceImageOCRResults" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</body>
+</html>

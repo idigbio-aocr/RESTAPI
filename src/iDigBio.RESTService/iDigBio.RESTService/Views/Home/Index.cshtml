@@ -1,0 +1,105 @@
+﻿<header>
+    <div class="content-wrapper">
+        <div class="float-left">
+            <p class="site-title">
+                <a href="~/">Hackathon REST API</a>
+            </p>
+        </div>
+    </div>
+</header>
+<div id="body">
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>Welcome to the Hackathon REST API!</h1>
+                <h2>Please review the documentation below for how to use this API</h2>
+            </hgroup>
+            <p>
+                The Hackathon REST API allows you to consume specimen label data in your applications and services directly using HTTP.  
+                This makes it easy to build HTTP services that reach a broad range of clients, and enables collaboration between 
+                RESTful applications.
+            </p>
+            <p>
+                To learn more about Hackathon visit
+
+                <a href="https://www.idigbio.org/" title="Integrated Digitized Biocollections (iDigBio)">www.idigbio.org/</a>.
+                
+                For more information about the hackathon for which this page was created,
+                <br />
+                visit the 
+                <a href="https://www.idigbio.org/wiki/index.php/2013_AOCR_Hackathon_Wiki" title="2013 AOCR Hackathon Wiki">2013 AOCR Hackathon Wiki</a>.
+            </p>
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        <h3>API documentation:</h3>
+        <ol class="round">
+            <li class="one">
+                <h5>Getting Started</h5>
+                <p>
+                    This API is capable of returning results in both JSON and XML format.  
+                    The content type of the response is dependent upon the accept headers provided by the requesint application.
+                </p>
+                <p>
+                    For example, if you are trying the links below using Internet Explorer, your browser is likely to prompt you to save results as a JSON file.  
+                    If you are using either Chrome or FireFox, the results are likely to display as XML.
+                </p>
+                <p>
+                    For testing purposes, use the unique identifiers (GUIDs) found in these two files:
+                </p>
+                <p>
+                    Lichen: <a href="/Data/LichensOcrImageSamples.csv" target="_blank" title="Lichen CSV Reference File">http://168.61.49.123:83/Data/LichensOcrImageSamples.csv</a>.
+                </p>
+                <p>
+                    Bryophyte: <a href="/Data/BryophyteOcrImageSamples.csv" target="_blank" title="Bryophyte CSV Reference File">http://168.61.49.123:83/Data/BryophyteOcrImageSamples.csv</a>.
+                </p>
+            </li>
+            <li class="two">
+                <h5>The basics</h5>
+                <p>
+                    Test Harness: <a href="/?Test=basic" target="_blank" title="Basic Test Link"><b>Wanna play?</b></a>  Try providing a sourceImageId, your choice of OCR, and get OCR results!
+                </p>
+                To get data for a <b>single</b>, specific, image (including the source URL):
+                <br />
+                <table>
+                    <tr>
+                        <td>Lichen: <a href="/api/SourceImages?sourceImageId=78B2B044-616D-E211-BE78-CC52AF888AB6" target="_blank" title="Single Lichen Example">http://168.61.49.123:83/api/SourceImages?sourceImageId=78B2B044-616D-E211-BE78-CC52AF888AB6</a>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>By Alternate ID: <a href="/api/SourceImages?alternateId=904637" target="_blank" title="Single Lichen Alt Id">http://168.61.49.123:83/api/SourceImages?alternateId=904637</a>.
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>Bryophyte: <a href="/api/SourceImages?sourceImageId=2C0E9CBA-626D-E211-BE78-CC52AF888AB6" target="_blank" title="Single Bryophyte Example">http://168.61.49.123:83/api/SourceImages?sourceImageId=2C0E9CBA-626D-E211-BE78-CC52AF888AB6</a>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>By Alternate ID: <a href="/api/SourceImages?alternateId=1417841" target="_blank" title="Single Bryophyte Alt Id">http://168.61.49.123:83/api/SourceImages?alternateId=1417841</a>.
+                        </td>
+                    </tr>
+                </table>
+
+                @*                <br />
+                To get <b>ALL</b> images in a given repository (warning, will return 10,500 data records):
+                <p>
+                    Lichen: <a href="/api/SourceImages?sourceImageRepositoryId=7392B8CE-606D-E211-BE78-CC52AF888AB6" target="_blank" title="Lichen Repository Example">http://168.61.49.123:83/api/SourceImages?sourceImageRepositoryId=7392B8CE-606D-E211-BE78-CC52AF888AB6</a>.
+                </p>
+                <p>
+                    Bryophyte: <a href="/api/SourceImages?sourceImageRepositoryId=4B73A7FD-606D-E211-BE78-CC52AF888AB6" target="_blank" title="Bryophyte Repository Example">http://168.61.49.123:83/api/SourceImages?sourceImageRepositoryId=4B73A7FD-606D-E211-BE78-CC52AF888AB6</a>.
+                </p>
+                <br />
+                To get <b>ALL</b> images (warning, will return 21,000 data records):
+                <p>
+                    Both Lichen and Bryophyte: <a href="/api/SourceImages/" target="_blank" title="All Images">http://168.61.49.123:83/api/SourceImages/</a>
+                </p>*@
+            </li>
+            <li class="three">
+                <h5>Future Development</h5>
+                ???
+            </li>
+        </ol>
+    </section>
+</div>

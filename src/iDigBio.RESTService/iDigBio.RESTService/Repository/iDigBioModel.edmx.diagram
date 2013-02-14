@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7cf54ba6cb944a818370686bf94e6ce0" Name="Diagram1">
+        <EntityTypeShape EntityType="iDigBioModel.OCRCachedResult" Width="1.5" PointX="11.265929152847235" PointY="2.3097999255684205" />
+        <EntityTypeShape EntityType="iDigBioModel.ParsingResult" Width="1.5" PointX="2.2886113777237997" PointY="23.988946732128479" />
+        <EntityTypeShape EntityType="iDigBioModel.ProcessEngine" Width="1.5" PointX="3.1870516646593119" PointY="28.2545655948364" />
+        <EntityTypeShape EntityType="iDigBioModel.SourceImage" Width="1.5" PointX="3.7128402365897033" PointY="0.19056124994091747" />
+        <EntityTypeShape EntityType="iDigBioModel.SourceImageProcessRequest" Width="1.5" PointX="2.5574856766301606" PointY="24.055291425462482" />
+        <EntityTypeShape EntityType="iDigBioModel.SourceImageRepository" Width="1.5" PointX="0.45774781352735483" PointY="21.183583001225994" />
+        <EntityTypeShape EntityType="iDigBioModel.SourceImageRepositoryProcessEngineConfig" Width="1.5" PointX="5.4849788125068777" PointY="0.67803654106242417" />
+        <EntityTypeShape EntityType="iDigBioModel.sysdiagram" Width="1.5" PointX="0.27325734695105691" PointY="12.683373174017003" />
+        <AssociationConnector Association="iDigBioModel.FK_OCRCachedResult_ProcessEngine" />
+        <AssociationConnector Association="iDigBioModel.FK_OCRCachedResult_SourceImage" />
+        <AssociationConnector Association="iDigBioModel.FK_SourceImageProcessRequest_ProcessEngine" />
+        <AssociationConnector Association="iDigBioModel.FK_SourceImageRepositoryProcessEngineConfig_ProcessEngine" />
+        <AssociationConnector Association="iDigBioModel.FK_SourceImageProcessRequest_SourceImage" />
+        <AssociationConnector Association="iDigBioModel.FK_SourceImageRepositoryUrl_SourceImageRepository" />
+        <AssociationConnector Association="iDigBioModel.FK_SourceImageRepositoryProcessEngineConfig_SourceImageRepository" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

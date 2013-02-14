@@ -1,0 +1,632 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="iDigBioModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="iDigBioModelStoreContainer">
+          <EntitySet Name="OCRCachedResult" EntityType="iDigBioModel.Store.OCRCachedResult" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ParsingResults" EntityType="iDigBioModel.Store.ParsingResults" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProcessEngine" EntityType="iDigBioModel.Store.ProcessEngine" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SourceImage" EntityType="iDigBioModel.Store.SourceImage" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SourceImageProcessRequest" EntityType="iDigBioModel.Store.SourceImageProcessRequest" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SourceImageRepository" EntityType="iDigBioModel.Store.SourceImageRepository" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SourceImageRepositoryProcessEngineConfig" EntityType="iDigBioModel.Store.SourceImageRepositoryProcessEngineConfig" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="iDigBioModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_OCRCachedResult_ProcessEngine" Association="iDigBioModel.Store.FK_OCRCachedResult_ProcessEngine">
+            <End Role="ProcessEngine" EntitySet="ProcessEngine" />
+            <End Role="OCRCachedResult" EntitySet="OCRCachedResult" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCRCachedResult_SourceImage" Association="iDigBioModel.Store.FK_OCRCachedResult_SourceImage">
+            <End Role="SourceImage" EntitySet="SourceImage" />
+            <End Role="OCRCachedResult" EntitySet="OCRCachedResult" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImageProcessRequest_ProcessEngine" Association="iDigBioModel.Store.FK_SourceImageProcessRequest_ProcessEngine">
+            <End Role="ProcessEngine" EntitySet="ProcessEngine" />
+            <End Role="SourceImageProcessRequest" EntitySet="SourceImageProcessRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImageProcessRequest_SourceImage" Association="iDigBioModel.Store.FK_SourceImageProcessRequest_SourceImage">
+            <End Role="SourceImage" EntitySet="SourceImage" />
+            <End Role="SourceImageProcessRequest" EntitySet="SourceImageProcessRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImageRepositoryProcessEngineConfig_ProcessEngine" Association="iDigBioModel.Store.FK_SourceImageRepositoryProcessEngineConfig_ProcessEngine">
+            <End Role="ProcessEngine" EntitySet="ProcessEngine" />
+            <End Role="SourceImageRepositoryProcessEngineConfig" EntitySet="SourceImageRepositoryProcessEngineConfig" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImageRepositoryProcessEngineConfig_SourceImageRepository" Association="iDigBioModel.Store.FK_SourceImageRepositoryProcessEngineConfig_SourceImageRepository">
+            <End Role="SourceImageRepository" EntitySet="SourceImageRepository" />
+            <End Role="SourceImageRepositoryProcessEngineConfig" EntitySet="SourceImageRepositoryProcessEngineConfig" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImageRepositoryUrl_SourceImageRepository" Association="iDigBioModel.Store.FK_SourceImageRepositoryUrl_SourceImageRepository">
+            <End Role="SourceImageRepository" EntitySet="SourceImageRepository" />
+            <End Role="SourceImage" EntitySet="SourceImage" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="OCRCachedResult">
+          <Key>
+            <PropertyRef Name="ocrCachedResultId" />
+          </Key>
+          <Property Name="ocrCachedResultId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="sourceImageId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="processEngineId" Type="int" Nullable="false" />
+          <Property Name="value" Type="nvarchar" />
+        </EntityType>
+        <EntityType Name="ParsingResults">
+          <Key>
+            <PropertyRef Name="parsingResultId" />
+          </Key>
+          <Property Name="parsingResultId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="fileNameIdentifier" Type="nvarchar" MaxLength="100" />
+          <Property Name="sourceUUID" Type="uniqueidentifier" />
+          <Property Name="dwcrecordedBy" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcrecordNumber" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcverbatimCoordinates" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcverbatimEventDate" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwceventDate" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcmunicipality" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwccounty" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcstateProvince" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwccountry" Type="nvarchar" MaxLength="500" />
+          <Property Name="aocrverbatimScientificName" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcverbatimLocality" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwchabitat" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcsubstrate" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcverbatimElevation" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcidentifiedBy" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcdateIdentified" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcverbatimLatitude" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcverbatimLongitude" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwccatalogNumber" Type="nvarchar" MaxLength="500" />
+          <Property Name="aocrverbatimInstitution" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcdatasetName" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcscientificName" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcdecimalLatitude" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcdecimalLongitude" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcfieldNotes" Type="nvarchar" MaxLength="500" />
+          <Property Name="dwcsex" Type="nvarchar" MaxLength="500" />
+          <Property Name="createdByUserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="createdUTCDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ipAddress" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProcessEngine">
+          <Key>
+            <PropertyRef Name="processEngineId" />
+          </Key>
+          <Property Name="processEngineId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="description" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="SourceImage">
+          <Key>
+            <PropertyRef Name="sourceImageId" />
+          </Key>
+          <Property Name="sourceImageId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="sourceImageRepositoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="fileName" Type="nvarchar" MaxLength="500" />
+          <Property Name="url" Type="nvarchar" MaxLength="1000" />
+          <Property Name="alternateId" Type="nvarchar" MaxLength="100" />
+          <Property Name="createdUTCDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SourceImageProcessRequest">
+          <Key>
+            <PropertyRef Name="sourceImageProcessRequestId" />
+          </Key>
+          <Property Name="sourceImageProcessRequestId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="sourceImageId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="processEngineId" Type="int" Nullable="false" />
+          <Property Name="callbackUri" Type="nvarchar" MaxLength="500" />
+          <Property Name="ipAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="resultValue" Type="nvarchar" />
+          <Property Name="resultCallbackUri" Type="nvarchar" />
+          <Property Name="resultCreatedUTCDateTime" Type="datetime" />
+          <Property Name="createdByUserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="createdUTCDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SourceImageRepository">
+          <Key>
+            <PropertyRef Name="sourceImageRepositoryId" />
+          </Key>
+          <Property Name="sourceImageRepositoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" />
+          <Property Name="description" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="SourceImageRepositoryProcessEngineConfig">
+          <Key>
+            <PropertyRef Name="sourceImageRepositoryId" />
+            <PropertyRef Name="processEngineId" />
+          </Key>
+          <Property Name="sourceImageRepositoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="processEngineId" Type="int" Nullable="false" />
+          <Property Name="environment" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="outputDirectoryPath" Type="nvarchar" MaxLength="1000" />
+          <Property Name="useOCRSimulatedResult" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_OCRCachedResult_ProcessEngine">
+          <End Role="ProcessEngine" Type="iDigBioModel.Store.ProcessEngine" Multiplicity="1" />
+          <End Role="OCRCachedResult" Type="iDigBioModel.Store.OCRCachedResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessEngine">
+              <PropertyRef Name="processEngineId" />
+            </Principal>
+            <Dependent Role="OCRCachedResult">
+              <PropertyRef Name="processEngineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OCRCachedResult_SourceImage">
+          <End Role="SourceImage" Type="iDigBioModel.Store.SourceImage" Multiplicity="1" />
+          <End Role="OCRCachedResult" Type="iDigBioModel.Store.OCRCachedResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceImage">
+              <PropertyRef Name="sourceImageId" />
+            </Principal>
+            <Dependent Role="OCRCachedResult">
+              <PropertyRef Name="sourceImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImageProcessRequest_ProcessEngine">
+          <End Role="ProcessEngine" Type="iDigBioModel.Store.ProcessEngine" Multiplicity="1" />
+          <End Role="SourceImageProcessRequest" Type="iDigBioModel.Store.SourceImageProcessRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessEngine">
+              <PropertyRef Name="processEngineId" />
+            </Principal>
+            <Dependent Role="SourceImageProcessRequest">
+              <PropertyRef Name="processEngineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImageProcessRequest_SourceImage">
+          <End Role="SourceImage" Type="iDigBioModel.Store.SourceImage" Multiplicity="1" />
+          <End Role="SourceImageProcessRequest" Type="iDigBioModel.Store.SourceImageProcessRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceImage">
+              <PropertyRef Name="sourceImageId" />
+            </Principal>
+            <Dependent Role="SourceImageProcessRequest">
+              <PropertyRef Name="sourceImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImageRepositoryProcessEngineConfig_ProcessEngine">
+          <End Role="ProcessEngine" Type="iDigBioModel.Store.ProcessEngine" Multiplicity="1" />
+          <End Role="SourceImageRepositoryProcessEngineConfig" Type="iDigBioModel.Store.SourceImageRepositoryProcessEngineConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessEngine">
+              <PropertyRef Name="processEngineId" />
+            </Principal>
+            <Dependent Role="SourceImageRepositoryProcessEngineConfig">
+              <PropertyRef Name="processEngineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImageRepositoryProcessEngineConfig_SourceImageRepository">
+          <End Role="SourceImageRepository" Type="iDigBioModel.Store.SourceImageRepository" Multiplicity="1" />
+          <End Role="SourceImageRepositoryProcessEngineConfig" Type="iDigBioModel.Store.SourceImageRepositoryProcessEngineConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceImageRepository">
+              <PropertyRef Name="sourceImageRepositoryId" />
+            </Principal>
+            <Dependent Role="SourceImageRepositoryProcessEngineConfig">
+              <PropertyRef Name="sourceImageRepositoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImageRepositoryUrl_SourceImageRepository">
+          <End Role="SourceImageRepository" Type="iDigBioModel.Store.SourceImageRepository" Multiplicity="1" />
+          <End Role="SourceImage" Type="iDigBioModel.Store.SourceImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceImageRepository">
+              <PropertyRef Name="sourceImageRepositoryId" />
+            </Principal>
+            <Dependent Role="SourceImage">
+              <PropertyRef Name="sourceImageRepositoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="iDigBioModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="iDigBioEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="OCRCachedResults" EntityType="iDigBioModel.OCRCachedResult" />
+          <EntitySet Name="ParsingResults" EntityType="iDigBioModel.ParsingResult" />
+          <EntitySet Name="ProcessEngines" EntityType="iDigBioModel.ProcessEngine" />
+          <EntitySet Name="SourceImages" EntityType="iDigBioModel.SourceImage" />
+          <EntitySet Name="SourceImageProcessRequests" EntityType="iDigBioModel.SourceImageProcessRequest" />
+          <EntitySet Name="SourceImageRepositories" EntityType="iDigBioModel.SourceImageRepository" />
+          <EntitySet Name="SourceImageRepositoryProcessEngineConfigs" EntityType="iDigBioModel.SourceImageRepositoryProcessEngineConfig" />
+          <EntitySet Name="sysdiagrams" EntityType="iDigBioModel.sysdiagram" />
+          <AssociationSet Name="FK_OCRCachedResult_ProcessEngine" Association="iDigBioModel.FK_OCRCachedResult_ProcessEngine">
+            <End Role="ProcessEngine" EntitySet="ProcessEngines" />
+            <End Role="OCRCachedResult" EntitySet="OCRCachedResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCRCachedResult_SourceImage" Association="iDigBioModel.FK_OCRCachedResult_SourceImage">
+            <End Role="SourceImage" EntitySet="SourceImages" />
+            <End Role="OCRCachedResult" EntitySet="OCRCachedResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImageProcessRequest_ProcessEngine" Association="iDigBioModel.FK_SourceImageProcessRequest_ProcessEngine">
+            <End Role="ProcessEngine" EntitySet="ProcessEngines" />
+            <End Role="SourceImageProcessRequest" EntitySet="SourceImageProcessRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImageRepositoryProcessEngineConfig_ProcessEngine" Association="iDigBioModel.FK_SourceImageRepositoryProcessEngineConfig_ProcessEngine">
+            <End Role="ProcessEngine" EntitySet="ProcessEngines" />
+            <End Role="SourceImageRepositoryProcessEngineConfig" EntitySet="SourceImageRepositoryProcessEngineConfigs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImageProcessRequest_SourceImage" Association="iDigBioModel.FK_SourceImageProcessRequest_SourceImage">
+            <End Role="SourceImage" EntitySet="SourceImages" />
+            <End Role="SourceImageProcessRequest" EntitySet="SourceImageProcessRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImageRepositoryUrl_SourceImageRepository" Association="iDigBioModel.FK_SourceImageRepositoryUrl_SourceImageRepository">
+            <End Role="SourceImageRepository" EntitySet="SourceImageRepositories" />
+            <End Role="SourceImage" EntitySet="SourceImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SourceImageRepositoryProcessEngineConfig_SourceImageRepository" Association="iDigBioModel.FK_SourceImageRepositoryProcessEngineConfig_SourceImageRepository">
+            <End Role="SourceImageRepository" EntitySet="SourceImageRepositories" />
+            <End Role="SourceImageRepositoryProcessEngineConfig" EntitySet="SourceImageRepositoryProcessEngineConfigs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="OCRCachedResult">
+          <Key>
+            <PropertyRef Name="ocrCachedResultId" />
+          </Key>
+          <Property Type="Int32" Name="ocrCachedResultId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="sourceImageId" Nullable="false" />
+          <Property Type="Int32" Name="processEngineId" Nullable="false" />
+          <Property Type="String" Name="value" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProcessEngine" Relationship="iDigBioModel.FK_OCRCachedResult_ProcessEngine" FromRole="OCRCachedResult" ToRole="ProcessEngine" />
+          <NavigationProperty Name="SourceImage" Relationship="iDigBioModel.FK_OCRCachedResult_SourceImage" FromRole="OCRCachedResult" ToRole="SourceImage" />
+        </EntityType>
+        <EntityType Name="ParsingResult">
+          <Key>
+            <PropertyRef Name="parsingResultId" />
+          </Key>
+          <Property Type="Int32" Name="parsingResultId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="fileNameIdentifier" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="sourceUUID" />
+          <Property Type="String" Name="dwcrecordedBy" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcrecordNumber" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcverbatimCoordinates" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcverbatimEventDate" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwceventDate" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcmunicipality" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwccounty" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcstateProvince" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwccountry" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="aocrverbatimScientificName" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcverbatimLocality" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwchabitat" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcsubstrate" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcverbatimElevation" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcidentifiedBy" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcdateIdentified" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcverbatimLatitude" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcverbatimLongitude" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwccatalogNumber" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="aocrverbatimInstitution" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcdatasetName" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcscientificName" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcdecimalLatitude" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcdecimalLongitude" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcfieldNotes" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="dwcsex" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="createdByUserName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="createdUTCDateTime" Nullable="false" Precision="3" />
+          <Property Type="String" Name="ipAddress" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProcessEngine">
+          <Key>
+            <PropertyRef Name="processEngineId" />
+          </Key>
+          <Property Type="Int32" Name="processEngineId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="description" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OCRCachedResults" Relationship="iDigBioModel.FK_OCRCachedResult_ProcessEngine" FromRole="ProcessEngine" ToRole="OCRCachedResult" />
+          <NavigationProperty Name="SourceImageProcessRequests" Relationship="iDigBioModel.FK_SourceImageProcessRequest_ProcessEngine" FromRole="ProcessEngine" ToRole="SourceImageProcessRequest" />
+          <NavigationProperty Name="SourceImageRepositoryProcessEngineConfigs" Relationship="iDigBioModel.FK_SourceImageRepositoryProcessEngineConfig_ProcessEngine" FromRole="ProcessEngine" ToRole="SourceImageRepositoryProcessEngineConfig" />
+        </EntityType>
+        <EntityType Name="SourceImage">
+          <Key>
+            <PropertyRef Name="sourceImageId" />
+          </Key>
+          <Property Type="Guid" Name="sourceImageId" Nullable="false" />
+          <Property Type="Guid" Name="sourceImageRepositoryId" Nullable="false" />
+          <Property Type="String" Name="fileName" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="url" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="alternateId" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="createdUTCDateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="OCRCachedResults" Relationship="iDigBioModel.FK_OCRCachedResult_SourceImage" FromRole="SourceImage" ToRole="OCRCachedResult" />
+          <NavigationProperty Name="SourceImageProcessRequests" Relationship="iDigBioModel.FK_SourceImageProcessRequest_SourceImage" FromRole="SourceImage" ToRole="SourceImageProcessRequest" />
+          <NavigationProperty Name="SourceImageRepository" Relationship="iDigBioModel.FK_SourceImageRepositoryUrl_SourceImageRepository" FromRole="SourceImage" ToRole="SourceImageRepository" />
+        </EntityType>
+        <EntityType Name="SourceImageProcessRequest">
+          <Key>
+            <PropertyRef Name="sourceImageProcessRequestId" />
+          </Key>
+          <Property Type="Guid" Name="sourceImageProcessRequestId" Nullable="false" />
+          <Property Type="Guid" Name="sourceImageId" Nullable="false" />
+          <Property Type="Int32" Name="processEngineId" Nullable="false" />
+          <Property Type="String" Name="callbackUri" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ipAddress" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="resultValue" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="resultCallbackUri" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="resultCreatedUTCDateTime" Precision="3" />
+          <Property Type="String" Name="createdByUserName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="createdUTCDateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ProcessEngine" Relationship="iDigBioModel.FK_SourceImageProcessRequest_ProcessEngine" FromRole="SourceImageProcessRequest" ToRole="ProcessEngine" />
+          <NavigationProperty Name="SourceImage" Relationship="iDigBioModel.FK_SourceImageProcessRequest_SourceImage" FromRole="SourceImageProcessRequest" ToRole="SourceImage" />
+        </EntityType>
+        <EntityType Name="SourceImageRepository">
+          <Key>
+            <PropertyRef Name="sourceImageRepositoryId" />
+          </Key>
+          <Property Type="Guid" Name="sourceImageRepositoryId" Nullable="false" />
+          <Property Type="String" Name="name" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="description" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SourceImages" Relationship="iDigBioModel.FK_SourceImageRepositoryUrl_SourceImageRepository" FromRole="SourceImageRepository" ToRole="SourceImage" />
+          <NavigationProperty Name="SourceImageRepositoryProcessEngineConfigs" Relationship="iDigBioModel.FK_SourceImageRepositoryProcessEngineConfig_SourceImageRepository" FromRole="SourceImageRepository" ToRole="SourceImageRepositoryProcessEngineConfig" />
+        </EntityType>
+        <EntityType Name="SourceImageRepositoryProcessEngineConfig">
+          <Key>
+            <PropertyRef Name="sourceImageRepositoryId" />
+            <PropertyRef Name="processEngineId" />
+          </Key>
+          <Property Type="Guid" Name="sourceImageRepositoryId" Nullable="false" />
+          <Property Type="Int32" Name="processEngineId" Nullable="false" />
+          <Property Type="String" Name="environment" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="outputDirectoryPath" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="useOCRSimulatedResult" Nullable="false" />
+          <NavigationProperty Name="ProcessEngine" Relationship="iDigBioModel.FK_SourceImageRepositoryProcessEngineConfig_ProcessEngine" FromRole="SourceImageRepositoryProcessEngineConfig" ToRole="ProcessEngine" />
+          <NavigationProperty Name="SourceImageRepository" Relationship="iDigBioModel.FK_SourceImageRepositoryProcessEngineConfig_SourceImageRepository" FromRole="SourceImageRepositoryProcessEngineConfig" ToRole="SourceImageRepository" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Type="String" Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="principal_id" Nullable="false" />
+          <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="version" />
+          <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_OCRCachedResult_ProcessEngine">
+          <End Type="iDigBioModel.ProcessEngine" Role="ProcessEngine" Multiplicity="1" />
+          <End Type="iDigBioModel.OCRCachedResult" Role="OCRCachedResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessEngine">
+              <PropertyRef Name="processEngineId" />
+            </Principal>
+            <Dependent Role="OCRCachedResult">
+              <PropertyRef Name="processEngineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OCRCachedResult_SourceImage">
+          <End Type="iDigBioModel.SourceImage" Role="SourceImage" Multiplicity="1" />
+          <End Type="iDigBioModel.OCRCachedResult" Role="OCRCachedResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceImage">
+              <PropertyRef Name="sourceImageId" />
+            </Principal>
+            <Dependent Role="OCRCachedResult">
+              <PropertyRef Name="sourceImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImageProcessRequest_ProcessEngine">
+          <End Type="iDigBioModel.ProcessEngine" Role="ProcessEngine" Multiplicity="1" />
+          <End Type="iDigBioModel.SourceImageProcessRequest" Role="SourceImageProcessRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessEngine">
+              <PropertyRef Name="processEngineId" />
+            </Principal>
+            <Dependent Role="SourceImageProcessRequest">
+              <PropertyRef Name="processEngineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImageRepositoryProcessEngineConfig_ProcessEngine">
+          <End Type="iDigBioModel.ProcessEngine" Role="ProcessEngine" Multiplicity="1" />
+          <End Type="iDigBioModel.SourceImageRepositoryProcessEngineConfig" Role="SourceImageRepositoryProcessEngineConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessEngine">
+              <PropertyRef Name="processEngineId" />
+            </Principal>
+            <Dependent Role="SourceImageRepositoryProcessEngineConfig">
+              <PropertyRef Name="processEngineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImageProcessRequest_SourceImage">
+          <End Type="iDigBioModel.SourceImage" Role="SourceImage" Multiplicity="1" />
+          <End Type="iDigBioModel.SourceImageProcessRequest" Role="SourceImageProcessRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceImage">
+              <PropertyRef Name="sourceImageId" />
+            </Principal>
+            <Dependent Role="SourceImageProcessRequest">
+              <PropertyRef Name="sourceImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImageRepositoryUrl_SourceImageRepository">
+          <End Type="iDigBioModel.SourceImageRepository" Role="SourceImageRepository" Multiplicity="1" />
+          <End Type="iDigBioModel.SourceImage" Role="SourceImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceImageRepository">
+              <PropertyRef Name="sourceImageRepositoryId" />
+            </Principal>
+            <Dependent Role="SourceImage">
+              <PropertyRef Name="sourceImageRepositoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SourceImageRepositoryProcessEngineConfig_SourceImageRepository">
+          <End Type="iDigBioModel.SourceImageRepository" Role="SourceImageRepository" Multiplicity="1" />
+          <End Type="iDigBioModel.SourceImageRepositoryProcessEngineConfig" Role="SourceImageRepositoryProcessEngineConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceImageRepository">
+              <PropertyRef Name="sourceImageRepositoryId" />
+            </Principal>
+            <Dependent Role="SourceImageRepositoryProcessEngineConfig">
+              <PropertyRef Name="sourceImageRepositoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="iDigBioModelStoreContainer" CdmEntityContainer="iDigBioEntities">
+          <EntitySetMapping Name="OCRCachedResults">
+            <EntityTypeMapping TypeName="iDigBioModel.OCRCachedResult">
+              <MappingFragment StoreEntitySet="OCRCachedResult">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="processEngineId" ColumnName="processEngineId" />
+                <ScalarProperty Name="sourceImageId" ColumnName="sourceImageId" />
+                <ScalarProperty Name="ocrCachedResultId" ColumnName="ocrCachedResultId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParsingResults">
+            <EntityTypeMapping TypeName="iDigBioModel.ParsingResult">
+              <MappingFragment StoreEntitySet="ParsingResults">
+                <ScalarProperty Name="ipAddress" ColumnName="ipAddress" />
+                <ScalarProperty Name="createdUTCDateTime" ColumnName="createdUTCDateTime" />
+                <ScalarProperty Name="createdByUserName" ColumnName="createdByUserName" />
+                <ScalarProperty Name="dwcsex" ColumnName="dwcsex" />
+                <ScalarProperty Name="dwcfieldNotes" ColumnName="dwcfieldNotes" />
+                <ScalarProperty Name="dwcdecimalLongitude" ColumnName="dwcdecimalLongitude" />
+                <ScalarProperty Name="dwcdecimalLatitude" ColumnName="dwcdecimalLatitude" />
+                <ScalarProperty Name="dwcscientificName" ColumnName="dwcscientificName" />
+                <ScalarProperty Name="dwcdatasetName" ColumnName="dwcdatasetName" />
+                <ScalarProperty Name="aocrverbatimInstitution" ColumnName="aocrverbatimInstitution" />
+                <ScalarProperty Name="dwccatalogNumber" ColumnName="dwccatalogNumber" />
+                <ScalarProperty Name="dwcverbatimLongitude" ColumnName="dwcverbatimLongitude" />
+                <ScalarProperty Name="dwcverbatimLatitude" ColumnName="dwcverbatimLatitude" />
+                <ScalarProperty Name="dwcdateIdentified" ColumnName="dwcdateIdentified" />
+                <ScalarProperty Name="dwcidentifiedBy" ColumnName="dwcidentifiedBy" />
+                <ScalarProperty Name="dwcverbatimElevation" ColumnName="dwcverbatimElevation" />
+                <ScalarProperty Name="dwcsubstrate" ColumnName="dwcsubstrate" />
+                <ScalarProperty Name="dwchabitat" ColumnName="dwchabitat" />
+                <ScalarProperty Name="dwcverbatimLocality" ColumnName="dwcverbatimLocality" />
+                <ScalarProperty Name="aocrverbatimScientificName" ColumnName="aocrverbatimScientificName" />
+                <ScalarProperty Name="dwccountry" ColumnName="dwccountry" />
+                <ScalarProperty Name="dwcstateProvince" ColumnName="dwcstateProvince" />
+                <ScalarProperty Name="dwccounty" ColumnName="dwccounty" />
+                <ScalarProperty Name="dwcmunicipality" ColumnName="dwcmunicipality" />
+                <ScalarProperty Name="dwceventDate" ColumnName="dwceventDate" />
+                <ScalarProperty Name="dwcverbatimEventDate" ColumnName="dwcverbatimEventDate" />
+                <ScalarProperty Name="dwcverbatimCoordinates" ColumnName="dwcverbatimCoordinates" />
+                <ScalarProperty Name="dwcrecordNumber" ColumnName="dwcrecordNumber" />
+                <ScalarProperty Name="dwcrecordedBy" ColumnName="dwcrecordedBy" />
+                <ScalarProperty Name="sourceUUID" ColumnName="sourceUUID" />
+                <ScalarProperty Name="fileNameIdentifier" ColumnName="fileNameIdentifier" />
+                <ScalarProperty Name="parsingResultId" ColumnName="parsingResultId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProcessEngines">
+            <EntityTypeMapping TypeName="iDigBioModel.ProcessEngine">
+              <MappingFragment StoreEntitySet="ProcessEngine">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="processEngineId" ColumnName="processEngineId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SourceImages">
+            <EntityTypeMapping TypeName="iDigBioModel.SourceImage">
+              <MappingFragment StoreEntitySet="SourceImage">
+                <ScalarProperty Name="createdUTCDateTime" ColumnName="createdUTCDateTime" />
+                <ScalarProperty Name="alternateId" ColumnName="alternateId" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="fileName" ColumnName="fileName" />
+                <ScalarProperty Name="sourceImageRepositoryId" ColumnName="sourceImageRepositoryId" />
+                <ScalarProperty Name="sourceImageId" ColumnName="sourceImageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SourceImageProcessRequests">
+            <EntityTypeMapping TypeName="iDigBioModel.SourceImageProcessRequest">
+              <MappingFragment StoreEntitySet="SourceImageProcessRequest">
+                <ScalarProperty Name="createdUTCDateTime" ColumnName="createdUTCDateTime" />
+                <ScalarProperty Name="createdByUserName" ColumnName="createdByUserName" />
+                <ScalarProperty Name="resultCreatedUTCDateTime" ColumnName="resultCreatedUTCDateTime" />
+                <ScalarProperty Name="resultCallbackUri" ColumnName="resultCallbackUri" />
+                <ScalarProperty Name="resultValue" ColumnName="resultValue" />
+                <ScalarProperty Name="ipAddress" ColumnName="ipAddress" />
+                <ScalarProperty Name="callbackUri" ColumnName="callbackUri" />
+                <ScalarProperty Name="processEngineId" ColumnName="processEngineId" />
+                <ScalarProperty Name="sourceImageId" ColumnName="sourceImageId" />
+                <ScalarProperty Name="sourceImageProcessRequestId" ColumnName="sourceImageProcessRequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SourceImageRepositories">
+            <EntityTypeMapping TypeName="iDigBioModel.SourceImageRepository">
+              <MappingFragment StoreEntitySet="SourceImageRepository">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="sourceImageRepositoryId" ColumnName="sourceImageRepositoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SourceImageRepositoryProcessEngineConfigs">
+            <EntityTypeMapping TypeName="iDigBioModel.SourceImageRepositoryProcessEngineConfig">
+              <MappingFragment StoreEntitySet="SourceImageRepositoryProcessEngineConfig">
+                <ScalarProperty Name="useOCRSimulatedResult" ColumnName="useOCRSimulatedResult" />
+                <ScalarProperty Name="outputDirectoryPath" ColumnName="outputDirectoryPath" />
+                <ScalarProperty Name="environment" ColumnName="environment" />
+                <ScalarProperty Name="processEngineId" ColumnName="processEngineId" />
+                <ScalarProperty Name="sourceImageRepositoryId" ColumnName="sourceImageRepositoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="iDigBioModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
